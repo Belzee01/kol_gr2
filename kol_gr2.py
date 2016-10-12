@@ -1,23 +1,42 @@
-#Write a library that contains a class that can represent any 2𝑥2 real matrice. 
-#Include two functions to calculate the sum and product of two matrices. 
-#Next, write a program that imports this library module and use it to perform calculations.
-#Examples:
-#
-# matrix_1 = Matrix(4,5,6,7)
-# matrix_2 = Matrix(2,2,2,1)
-#
-# matrix_3 = matrix_2.add(matrix_1)
-#
-#Try to expand your implementation as best as you can. 
-#Think of as many features as you can, and try implementing them.
-#(If you want you can expand implementation to NxN matrix.)
-#Make intelligent use of pythons syntactic sugar (overloading, iterators, generators, etc)
-#Most of all: CREATE GOOD, RELIABLE, READABLE CODE.
-#The goal of this task is for you to SHOW YOUR BEST python programming skills.
-#Impress everyone with your skills, show off with your code.
-#
-#When you are done upload this code to your github repository. 
-#The whole repository MUST be named "kol_gr2"! 
-#
-#Delete these comments before commit!
-#Good luck.
+#!/usr/bin/python
+
+import math
+
+class Matrix():
+	
+	matrix = [[]]
+	
+	def __init__(self, *args):
+		size = len(args)
+		size = math.sqrt(size)
+		for i in range(0, int(size), 1):
+			for j in range(0, int(size), 1):
+				self.matrix[i][j].append(args[i+j*1])
+	
+	def add(matrix):
+		for i in matrix.matrix:
+			for j in matrix.matrix[i]:
+				self.matrix[i][j] += j
+		
+	def mat_product(matrix):
+		returnMatrix = Matrix(0, 0, 0, 0)
+		for i in range(0,2,1):
+			for j in range(0,2,1):
+				for k in range(0,2,1):
+					returnMatrix.matrix[i][j] += self.matrix[i][k] * matrix[k][j]
+		return returnMatrix
+
+	def printMatrix():
+		for i in self.matrix:
+			for j in self.matrix[i]:
+				print j + " "
+
+
+matrix_1 = Matrix(4,5,6,7)
+matrix_2 = Matrix(2,2,2,1)
+
+matrix_3 = matrix_2.add(matrix_1)
+
+matrix_1.printMatrix()
+
+				
