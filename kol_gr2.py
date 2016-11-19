@@ -1,42 +1,78 @@
 #!/usr/bin/python
 
-import math
 
-class Matrix():
-	
-	matrix = [[]]
-	
-	def __init__(self, *args):
-		size = len(args)
-		size = math.sqrt(size)
-		for i in range(0, int(size), 1):
-			for j in range(0, int(size), 1):
-				self.matrix[i][j].append(args[i+j*1])
-	
-	def add(matrix):
-		for i in matrix.matrix:
-			for j in matrix.matrix[i]:
-				self.matrix[i][j] += j
-		
-	def mat_product(matrix):
-		returnMatrix = Matrix(0, 0, 0, 0)
-		for i in range(0,2,1):
-			for j in range(0,2,1):
-				for k in range(0,2,1):
-					returnMatrix.matrix[i][j] += self.matrix[i][k] * matrix[k][j]
-		return returnMatrix
+class Matrix(object):
+    def __init__(self, *args):
+        self.size = len(args) / 2
+        if self.size % 2 != 0.0:
+            print("Invalid number of arguments")
+            pass
+        self.matrix = [[[] for i in range(int(self.size))] for i in range(int(self.size))]
+        for i in range(int(self.size)):
+            for j in range(int(self.size)):
+                self.matrix[i][j] = args[i + j]
 
-	def printMatrix():
-		for i in self.matrix:
-			for j in self.matrix[i]:
-				print j + " "
+    def __add__(self, other):
+        if other.size != self.size:
+            print("Invalid matrix size")
+        else:
+            result = [[0 for row in range(int(self.size))] for col in range(int(self.size))]
+            for i in range(int(self.size)):
+                for j in range(int(self.size)):
+                    result[i][j] = self.matrix[i][j] + other.matrix[i][j]
+        return result
+
+    def mat_product(self, other):
+        product = [[0 for row in range(int(self.size))] for col in range(int(self.size))]
+        for i in range(int(self.size)):
+            for j in range(int(self.size)):
+                for k in range(int(self.size)):
+                    product[i][j] += self.matrix[i][k] * other.matrix[k][j]
+        return product
+
+    def __mul__(self, other):
+        for i in range(int(self.size)):
+            for j in range(int(self.size)):
+                for k in range(int(self.size)):
+                    self.matrix[i][j] += self.matrix[i][k] * other.matrix[k][j]
+        return self.matrix
+
+    def __str__(self):
+        matrix_str = ''
+        for i in range(int(self.size)):
+            for j in range(int(self.size)):
+                matrix_str += (str(self.matrix[i][j]) + " ")
+            matrix_str += "\n"
+        return matrix_str
+
+    def generator_matrix(self):
+        for i in self.matrix:
+            for j in i:
+                yield j
+
+    def generate_vector(self):
+        for i in self.generator_matrix():
+            print(i)
 
 
-matrix_1 = Matrix(4,5,6,7)
-matrix_2 = Matrix(2,2,2,1)
+def main():
+    matrix_1 = Matrix(4, 5, 6, 7)
+    matrix_2 = Matrix(2, 2, 2, 1)
 
-matrix_3 = matrix_2.add(matrix_1)
+    print(matrix_1)
+    print(matrix_2)
 
-matrix_1.printMatrix()
+    matrix_3 = matrix_1 + matrix_2
 
-				
+    print(matrix_3)
+
+    matrix_3 = matrix_1 * matrix_2
+    print(matrix_3)
+
+    print(matrix_1.mat_product(matrix_2))
+    print(matrix_1.mat_product(matrix_2))
+
+    matrix_1.generate_vector()
+
+if __name__ == '__main__':
+    main()
